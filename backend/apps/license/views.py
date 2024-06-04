@@ -4,6 +4,7 @@ from typing import List
 
 from backend.apps.license.models import Region
 from backend.apps.license.models import QuantitySchool
+from backend.apps.license.models import CodeLicense
 from backend.apps.license.models import IssuingAuthority
 from backend.apps.license.models import DBLicense
 
@@ -13,6 +14,9 @@ from backend.apps.license.schemas import RegionOUT
 from backend.apps.license.schemas import QuantityOUT
 from backend.apps.license.schemas import QuantityCreate
 from backend.apps.license.schemas import QuantityUpdate
+from backend.apps.license.schemas import StatusLicenseOUT
+from backend.apps.license.schemas import StatusLicenseCreate
+from backend.apps.license.schemas import StatusLicenseUpdate
 from backend.apps.license.schemas import IssuingAuthorityOUT
 from backend.apps.license.schemas import IssuingAuthorityCreate
 from backend.apps.license.schemas import IssuingAuthorityUpdate
@@ -138,6 +142,36 @@ async def delete_quantity(request, quantity_id: int):
     quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
     await sync_to_async(quantity.delete)()
     return {"success": True}
+
+
+#######################
+# STATUS ROUTER
+#######################
+
+@router.post("/status", response=StatusLicenseOUT)
+async def create_status(request, data: StatusLicenseCreate):
+    status = await sync_to_async(CodeLicense.objects.create)(**data.dict())
+    return status
+
+@router.get("/status", response=List[StatusLicenseOUT])
+async def get_status_all(request):
+    status = await sync_to_async(list)(CodeLicense.objects.all())
+    return status
+
+@router.get("/status/{status_id}", response=StatusLicenseOUT)
+async def get_status_pk(request, status_id: int):
+    status = await sync_to_async(CodeLicense.objects.get)(id=status_id)
+    return status
+
+
+@router.put("/status/{status_id}", response=StatusLicenseOUT)
+async def update_status(request, status_id: int, data: StatusLicenseUpdate):
+    status = await sync_to_async(CodeLicense.objects.get)(id=status_id)
+    for attr, value in data.dict().items():
+        setattr(status, attr, value)
+    await sync_to_async(status.save)()
+    return status
+
 
 #######################
 # LICENSE ROUTER

@@ -65,14 +65,36 @@ class QuantitySchool(models.Model):
         verbose_name_plural = 'Форма обучения'
 
 
+#######################
+# STATUS MODELS
+#######################
+
+class CodeLicense(models.Model):
+    """ Модель STATUS """
+
+    title = models.CharField('Статус', max_length=199, blank=True)
+
+    is_active = models.BooleanField('Активный', default=True)
+    created_date = models.DateTimeField('Дата создания', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
+
+
+#######################
+# DB-LICENSE MODELS
+#######################
+
+
+
 class DBLicense(models.Model):
     """ Модель Базы лицензии """
-
-    STATUS_CHOICES = [
-        ('issued', 'Выдан'),
-        ('suspended', 'Приостановлен'),
-        ('revoked', 'Аннулирован'),
-    ]
 
     number_register = models.CharField('Номер регистрации', unique=True, max_length=599, blank=True)
     name_entity = models.CharField('Наименование юр лиц', max_length=599, blank=True)
@@ -92,8 +114,8 @@ class DBLicense(models.Model):
     form_number_data = models.CharField('Основание дата выдачи дубликата', max_length=599, blank=True)
 
     file = models.FileField('Вставка файла', upload_to='file/', blank=True)
-    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='issued')
 
+    code_status = models.ForeignKey(CodeLicense, verbose_name='Статус выдачи', on_delete=models.CASCADE)
     issuing_authorities = models.ForeignKey(IssuingAuthority, verbose_name='Орган выдачи', on_delete=models.CASCADE)
     regions = models.ForeignKey(Region, verbose_name='Регион', on_delete=models.CASCADE)
     quantities = models.ForeignKey(QuantitySchool, verbose_name='Форма обучения', on_delete=models.CASCADE)

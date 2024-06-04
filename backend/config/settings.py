@@ -3,8 +3,8 @@ from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'django-insecure-^hj=1!(fe!*&2lfo12^l%n%z%-mmr!3^sy=b_2=zbfreq%@5e3jh'
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
@@ -124,6 +124,17 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": os.getenv("POSTGRES_DB", default="db"),
+#         "USER": os.getenv("POSTGRES_USER", default="db_admuser"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="db_ZAQ12345tgb*"),
+#         "HOST": os.getenv("POSTGRES_HOST", default="127.0.0.1"),
+#         "PORT": os.getenv("POSTGRES_PORT", default="5432"),
+#     }
+# }
 
 
 # Password validation
