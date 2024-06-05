@@ -10,8 +10,8 @@ class RegionBase(Schema):
     updated: datetime
 
 
-class RegionCreate(RegionBase):
-    pass
+class RegionCreate(Schema):
+    title: str
 
 
 class RegionUpdate(Schema):
@@ -35,8 +35,8 @@ class IssuingAuthorityBase(Schema):
     updated: datetime
 
 
-class IssuingAuthorityCreate(IssuingAuthorityBase):
-    pass
+class IssuingAuthorityCreate(Schema):
+    title: str
 
 
 class IssuingAuthorityUpdate(Schema):
@@ -60,8 +60,8 @@ class QuantityBase(Schema):
     updated: datetime
 
 
-class QuantityCreate(QuantityBase):
-    pass
+class QuantityCreate(Schema):
+    title: str
 
 
 class QuantityUpdate(Schema):

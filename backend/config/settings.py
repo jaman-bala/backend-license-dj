@@ -4,8 +4,8 @@ from datetime import timedelta
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY='django-insecure-^hj=1!(fe!*&2ertylfo12^l%n%z%-mmr!3^sy=b_2=zbfreq%@5e3jh'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
