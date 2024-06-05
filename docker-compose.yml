@@ -6,7 +6,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile
+      dockerfile: Dockerfiles/Dockerfile
     command: run
     volumes:
       - ./media:/app/media
