@@ -96,7 +96,7 @@ class CodeLicense(models.Model):
 class DBLicense(models.Model):
     """ Модель Базы лицензии """
 
-    number_register = models.CharField('Номер регистрации', unique=True, max_length=599, blank=True)
+    number_register = models.CharField('Номер регистрации', unique=True, max_length=999, blank=True)
     name_entity = models.CharField('Наименование юр лиц', max_length=599, blank=True)
     tax_name = models.CharField('Идентификационный номер', max_length=599, blank=True)
     entity_address = models.CharField('Юридический адрес', max_length=599, blank=True)
@@ -104,14 +104,15 @@ class DBLicense(models.Model):
     cipher = models.CharField('Шифр', max_length=599, blank=True)
     title_school = models.CharField('Наименование оброзовательной учр', max_length=599, blank=True)
     quantity_school = models.CharField('Кол. обучающих', max_length=599, blank=True)
-    issuing_license = models.CharField('Основание выдачи', max_length=599, blank=True)
+    issuing_license = models.CharField('Основание выдачи', max_length=1099, blank=True)
     data_license = models.DateTimeField('Дата выдачи')
     form_number = models.CharField('Номер и серия бланка', max_length=599, blank=True)
-    form_number_suspended = models.CharField('Основание срок приостанавления', max_length=599, blank=True)
-    form_number_start = models.CharField('Основание дата возобновления', max_length=599, blank=True)
-    form_number_stop = models.CharField('Основание дата прекращения', max_length=599, blank=True)
-    data_address = models.CharField('Данные о смене адреса', max_length=599, blank=True)
+    form_number_suspended = models.CharField('Основание срок приостанавления', max_length=2099, blank=True)
+    form_number_start = models.CharField('Основание дата возобновления', max_length=2099, blank=True)
+    form_number_stop = models.CharField('Основание дата прекращения', max_length=2099, blank=True)
+    data_address = models.CharField('Данные о смене адреса', max_length=1099, blank=True)
     form_number_data = models.CharField('Основание дата выдачи дубликата', max_length=599, blank=True)
+    term = models.CharField('Срок действия', max_length=599, blank=True)
 
     file = models.FileField('Вставка файла', upload_to='file/', blank=True)
 

@@ -102,7 +102,7 @@ class StatusLicenseOUT(Schema):
 
 
 class DBLicenseBase(Schema):
-    number_register: str = Field(None, max_length=599)
+    number_register: str = Field(None, max_length=999)
     name_entity: str = Field(None, max_length=599)
     tax_name: str = Field(None, max_length=599)
     entity_address: str = Field(None, max_length=599)
@@ -110,14 +110,15 @@ class DBLicenseBase(Schema):
     cipher: str = Field(None, max_length=599)
     title_school: str = Field(None, max_length=599)
     quantity_school: str = Field(None, max_length=599)
-    issuing_license: str = Field(None, max_length=599)
+    issuing_license: str = Field(None, max_length=1099)
     data_license: datetime
     form_number: str = Field(None, max_length=599)
-    form_number_suspended: str = Field(None, max_length=599)
-    form_number_start: str = Field(None, max_length=599)
-    form_number_stop: str = Field(None, max_length=599)
-    data_address: str = Field(None, max_length=599)
+    form_number_suspended: str = Field(None, max_length=2099)
+    form_number_start: str = Field(None, max_length=2099)
+    form_number_stop: str = Field(None, max_length=2099)
+    data_address: str = Field(None, max_length=1099)
     form_number_data: str = Field(None, max_length=599)
+    term: str = Field(None, max_length=599)
 
     file: str = None
     issuing_authorities_id: int = None
@@ -147,6 +148,7 @@ class DBLicenseCreate(Schema):
     form_number_stop: str = Field(None, max_length=599)
     data_address: str = Field(None, max_length=599)
     form_number_data: str = Field(None, max_length=599)
+    term: str = Field(None, max_length=599)
 
     file: str = None
     issuing_authorities_id: int = None
@@ -172,6 +174,7 @@ class DBLicenseUpdate(Schema):
     form_number_stop: str = Field(None, max_length=599)
     data_address: str = Field(None, max_length=599)
     form_number_data: str = Field(None, max_length=599)
+    term: str = Field(None, max_length=599)
 
     file: str = None
     issuing_authorities_id: int = None
@@ -200,6 +203,7 @@ class DBLicenseOUT(Schema):
     form_number_stop: str = Field(None, max_length=599)
     data_address: str = Field(None, max_length=599)
     form_number_data: str = Field(None, max_length=599)
+    term: str = Field(None, max_length=599)
 
     file: str = None
     issuing_authorities_id: int = None

@@ -4,8 +4,8 @@ from datetime import timedelta
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY='django-insecure-^hj=1!(fe!*&2ertylfo12^l%n%z%-mmr!3^sy=b_2=zbfreq%@5e3jh'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -77,8 +77,8 @@ NINJA_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=1),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(minutes=1),
 
     # For Controller Schemas
     # FOR OBTAIN PAIR
@@ -118,23 +118,23 @@ WSGI_APPLICATION = 'backend.config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": os.getenv("POSTGRES_DB", default="db"),
-#         "USER": os.getenv("POSTGRES_USER", default="db_admuser"),
-#         "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="db_ZAQ12345tgb*"),
-#         "HOST": os.getenv("POSTGRES_HOST", default="127.0.0.1"),
-#         "PORT": os.getenv("POSTGRES_PORT", default="5432"),
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.getenv("POSTGRES_DB", default="db"),
+        "USER": os.getenv("POSTGRES_USER", default="db_admuser"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="db_ZAQ12345tgb*"),
+        "HOST": os.getenv("POSTGRES_HOST", default="127.0.0.1"),
+        "PORT": os.getenv("POSTGRES_PORT", default="5432"),
+    }
+}
 
 
 # Password validation
