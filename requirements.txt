@@ -5,3 +5,4 @@ djangorestframework-simplejwt
 django-ninja-jwt
 django-cors-headers
 uvicorn
+psycopg2
