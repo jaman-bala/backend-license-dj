@@ -48,6 +48,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://lc.tsvs.kg",
+    "https://lc.tsvs.kg/login",
 ]
 
 AUTHENTICATION_BACKENDS = [
