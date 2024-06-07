@@ -1,9 +1,13 @@
+from datetime import datetime
+from http.client import HTTPException
+
 from asgiref.sync import sync_to_async
-from ninja import Router
+from ninja import Router, Form, File
+from ninja.files import UploadedFile
 from typing import List
 
 from backend.apps.license.models import Region
-from backend.apps.license.models import QuantitySchool
+# from backend.apps.license.models import QuantitySchool
 from backend.apps.license.models import CodeLicense
 from backend.apps.license.models import IssuingAuthority
 from backend.apps.license.models import DBLicense
@@ -11,9 +15,9 @@ from backend.apps.license.models import DBLicense
 from backend.apps.license.schemas import RegionCreate
 from backend.apps.license.schemas import RegionUpdate
 from backend.apps.license.schemas import RegionOUT
-from backend.apps.license.schemas import QuantityOUT
-from backend.apps.license.schemas import QuantityCreate
-from backend.apps.license.schemas import QuantityUpdate
+# from backend.apps.license.schemas import QuantityOUT
+# from backend.apps.license.schemas import QuantityCreate
+# from backend.apps.license.schemas import QuantityUpdate
 from backend.apps.license.schemas import StatusLicenseOUT
 from backend.apps.license.schemas import StatusLicenseCreate
 from backend.apps.license.schemas import StatusLicenseUpdate
@@ -105,43 +109,43 @@ async def delete_issuing(request, issuing_id: int):
     await sync_to_async(issuing.delete)()
     return {"success": True}
 
-#######################
-# QUANTITIES ROUTER
-#######################
-
-
-@router.post("/quantities", response=QuantityOUT)
-async def create_quantity(request, data: QuantityCreate):
-    quantity = await sync_to_async(QuantitySchool.objects.create)(**data.dict())
-    return quantity
-
-
-@router.get("/quantities", response=List[QuantityOUT])
-async def get_quantity_all(request):
-    quantity = await sync_to_async(list)(QuantitySchool.objects.all())
-    return quantity
-
-
-@router.get("/quantities/{quantity_id}", response=QuantityOUT)
-async def get_quantity_pk(request, quantity_id: int):
-    quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
-    return quantity
-
-
-@router.put("/quantities/{quantity_id}", response=QuantityOUT)
-async def update_quantity(request, quantity_id: int, data: QuantityUpdate):
-    quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
-    for attr, value in data.dict().items():
-        setattr(quantity, attr, value)
-    await sync_to_async(quantity.save)()
-    return quantity
-
-
-@router.delete("/quantities/{quantity_id}")
-async def delete_quantity(request, quantity_id: int):
-    quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
-    await sync_to_async(quantity.delete)()
-    return {"success": True}
+# #######################
+# # QUANTITIES ROUTER
+# #######################
+#
+#
+# @router.post("/quantities", response=QuantityOUT)
+# async def create_quantity(request, data: QuantityCreate):
+#     quantity = await sync_to_async(QuantitySchool.objects.create)(**data.dict())
+#     return quantity
+#
+#
+# @router.get("/quantities", response=List[QuantityOUT])
+# async def get_quantity_all(request):
+#     quantity = await sync_to_async(list)(QuantitySchool.objects.all())
+#     return quantity
+#
+#
+# @router.get("/quantities/{quantity_id}", response=QuantityOUT)
+# async def get_quantity_pk(request, quantity_id: int):
+#     quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
+#     return quantity
+#
+#
+# @router.put("/quantities/{quantity_id}", response=QuantityOUT)
+# async def update_quantity(request, quantity_id: int, data: QuantityUpdate):
+#     quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
+#     for attr, value in data.dict().items():
+#         setattr(quantity, attr, value)
+#     await sync_to_async(quantity.save)()
+#     return quantity
+#
+#
+# @router.delete("/quantities/{quantity_id}")
+# async def delete_quantity(request, quantity_id: int):
+#     quantity = await sync_to_async(QuantitySchool.objects.get)(id=quantity_id)
+#     await sync_to_async(quantity.delete)()
+#     return {"success": True}
 
 
 #######################
@@ -179,8 +183,98 @@ async def update_status(request, status_id: int, data: StatusLicenseUpdate):
 
 
 @router.post("/licenses", response=DBLicenseOUT)
-async def create_license(request, data: DBLicenseCreate):
-    license = await sync_to_async(DBLicense.objects.create)(**data.dict())
+async def create_license(
+        request,
+        number_register: str = Form(..., max_length=999),
+        name_entity: str = Form(..., max_length=599),
+        tax_name: str = Form(..., max_length=599),
+        entity_address: str = Form(..., max_length=599),
+        address_program: str = Form(..., max_length=599),
+        cipher: str = Form(..., max_length=599),
+
+        title_school: List[str] = Form(...),
+        quantity_school: List[str] = Form(...),
+        quantities: List[str] = Form(...),
+
+        issuing_license: str = Form(..., max_length=1099),
+        data_license: datetime = Form(...),
+        form_number: str = Form(..., max_length=599),
+        form_number_suspended: str = Form(..., max_length=2099),
+        form_number_start: str = Form(..., max_length=2099),
+        form_number_stop: str = Form(..., max_length=2099),
+        data_address: str = Form(..., max_length=1099),
+        form_number_data: str = Form(..., max_length=599),
+        term: str = Form(..., max_length=599),
+
+        file: UploadedFile = File(...),
+
+        issuing_authorities_id: int = Form(...),
+        regions_id: int = Form(...),
+        code_status_id: int = Form(...),
+):
+
+    data = DBLicenseCreate(
+        number_register=number_register,
+        name_entity=name_entity,
+        tax_name=tax_name,
+        entity_address=entity_address,
+        address_program=address_program,
+        cipher=cipher,
+
+        title_school=title_school,
+        quantity_school=quantity_school,
+        quantities=quantities,
+
+        issuing_license=issuing_license,
+        data_license=data_license,
+        form_number=form_number,
+        form_number_suspended=form_number_suspended,
+        form_number_start=form_number_start,
+        form_number_stop=form_number_stop,
+        data_address=data_address,
+        form_number_data=form_number_data,
+        term=term,
+
+        issuing_authorities_id=issuing_authorities_id,
+        regions_id=regions_id,
+        code_status_id=code_status_id,
+    )
+
+    # Получаем связанные объекты по их ID
+    code_status = await sync_to_async(CodeLicense.objects.get)(id=data.code_status_id)
+    issuing_authorities = await sync_to_async(IssuingAuthority.objects.get)(id=data.issuing_authorities_id)
+    regions = await sync_to_async(Region.objects.get)(id=data.regions_id)
+
+    # Создаем новый объект DBLicense с полученными объектами
+    license = await sync_to_async(DBLicense.objects.create)(
+        number_register=data.number_register,
+        name_entity=data.name_entity,
+        tax_name=data.tax_name,
+        entity_address=data.entity_address,
+        address_program=data.address_program,
+        cipher=data.cipher,
+
+        title_school=data.title_school,
+        quantity_school=data.quantity_school,
+        quantities=data.quantities,
+
+        issuing_license=data.issuing_license,
+        data_license=data.data_license,
+        form_number=data.form_number,
+        form_number_suspended=data.form_number_suspended,
+        form_number_start=data.form_number_start,
+        form_number_stop=data.form_number_stop,
+        data_address=data.data_address,
+        form_number_data=data.form_number_data,
+        term=data.term,
+
+        file=file,
+
+        code_status=code_status,
+        issuing_authorities=issuing_authorities,
+        regions=regions,
+        is_active=True,
+    )
     return license
 
 

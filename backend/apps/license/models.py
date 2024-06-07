@@ -43,27 +43,6 @@ class IssuingAuthority(models.Model):
         verbose_name_plural = 'Орган выдачи'
 
 
-#######################
-# QUANTITY MODELS
-#######################
-
-
-class QuantitySchool(models.Model):
-    """ Модель Формы обучения """
-
-    title = models.CharField('Форма обучения', max_length=599, blank=True)
-
-    is_active = models.BooleanField('Активный', default=True)
-    created_date = models.DateTimeField('Дата создания', auto_now_add=True)
-    updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'форму'
-        verbose_name_plural = 'Форма обучения'
-
 
 #######################
 # STATUS MODELS
@@ -102,8 +81,11 @@ class DBLicense(models.Model):
     entity_address = models.CharField('Юридический адрес', max_length=599, blank=True)
     address_program = models.CharField('Адрес реализационной прг', max_length=599, blank=True)
     cipher = models.CharField('Шифр', max_length=599, blank=True)
-    title_school = models.CharField('Наименование оброзовательной учр', max_length=599, blank=True)
-    quantity_school = models.CharField('Кол. обучающих', max_length=599, blank=True)
+
+    title_school = models.JSONField('Наименование оброзовательной учр', max_length=599, blank=True)
+    quantity_school = models.JSONField('Кол. обучающих', max_length=599, blank=True)
+    quantities = models.JSONField('Форма обучения', max_length=599, blank=True)
+
     issuing_license = models.CharField('Основание выдачи', max_length=1099, blank=True)
     data_license = models.DateTimeField('Дата выдачи')
     form_number = models.CharField('Номер и серия бланка', max_length=599, blank=True)
@@ -119,7 +101,6 @@ class DBLicense(models.Model):
     code_status = models.ForeignKey(CodeLicense, verbose_name='Статус выдачи', on_delete=models.CASCADE)
     issuing_authorities = models.ForeignKey(IssuingAuthority, verbose_name='Орган выдачи', on_delete=models.CASCADE)
     regions = models.ForeignKey(Region, verbose_name='Регион', on_delete=models.CASCADE)
-    quantities = models.ForeignKey(QuantitySchool, verbose_name='Форма обучения', on_delete=models.CASCADE)
 
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)

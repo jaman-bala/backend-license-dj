@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 from ninja import Schema, Field
 from datetime import datetime
 
@@ -52,30 +54,6 @@ class IssuingAuthorityOUT(Schema):
         orm_mode = True
 
 
-class QuantityBase(Schema):
-    title: str
-
-    is_active: bool
-    created_date: datetime
-    updated: datetime
-
-
-class QuantityCreate(Schema):
-    title: str
-
-
-class QuantityUpdate(Schema):
-    title: str
-    is_active: bool
-
-
-class QuantityOUT(Schema):
-    id: int
-    title: str
-
-    class Config:
-        orm_mode = True
-
 class StatusLicenseBase(Schema):
     title: str = None
 
@@ -102,29 +80,31 @@ class StatusLicenseOUT(Schema):
 
 
 class DBLicenseBase(Schema):
-    number_register: str = Field(None, max_length=999)
-    name_entity: str = Field(None, max_length=599)
-    tax_name: str = Field(None, max_length=599)
-    entity_address: str = Field(None, max_length=599)
-    address_program: str = Field(None, max_length=599)
-    cipher: str = Field(None, max_length=599)
-    title_school: str = Field(None, max_length=599)
-    quantity_school: str = Field(None, max_length=599)
-    issuing_license: str = Field(None, max_length=1099)
-    data_license: datetime
-    form_number: str = Field(None, max_length=599)
-    form_number_suspended: str = Field(None, max_length=2099)
-    form_number_start: str = Field(None, max_length=2099)
-    form_number_stop: str = Field(None, max_length=2099)
-    data_address: str = Field(None, max_length=1099)
-    form_number_data: str = Field(None, max_length=599)
-    term: str = Field(None, max_length=599)
+    number_register: Optional[str] = Field(None, max_length=999)
+    name_entity: Optional[str] = Field(None, max_length=599)
+    tax_name: Optional[str] = Field(None, max_length=599)
+    entity_address: Optional[str] = Field(None, max_length=599)
+    address_program: Optional[str] = Field(None, max_length=599)
+    cipher: Optional[str] = Field(None, max_length=599)
 
-    file: str = None
-    issuing_authorities_id: int = None
-    regions_id: int = None
-    quantities_id: int = None
-    code_status_id: int = None
+    title_school: Optional[List[str]] = Field(None, max_length=599)
+    quantity_school: Optional[List[str]] = Field(None, max_length=599)
+    quantities: Optional[List[str]] = Field(None, max_length=599)
+
+    issuing_license: Optional[str] = Field(None, max_length=1099)
+    data_license: datetime
+    form_number: Optional[str] = Field(None, max_length=599)
+    form_number_suspended: Optional[str] = Field(None, max_length=2099)
+    form_number_start: Optional[str] = Field(None, max_length=2099)
+    form_number_stop: Optional[str] = Field(None, max_length=2099)
+    data_address: Optional[str] = Field(None, max_length=1099)
+    form_number_data: Optional[str] = Field(None, max_length=599)
+    term: Optional[str] = Field(None, max_length=599)
+
+
+    issuing_authorities_id: Optional[int] = None
+    regions_id: Optional[int] = None
+    code_status_id: Optional[int] = None
 
     is_active: bool
     created_date: datetime
@@ -132,84 +112,87 @@ class DBLicenseBase(Schema):
 
 
 class DBLicenseCreate(Schema):
-    number_register: str = Field(None, max_length=599)
-    name_entity: str = Field(None, max_length=599)
-    tax_name: str = Field(None, max_length=599)
-    entity_address: str = Field(None, max_length=599)
-    address_program: str = Field(None, max_length=599)
-    cipher: str = Field(None, max_length=599)
-    title_school: str = Field(None, max_length=599)
-    quantity_school: str = Field(None, max_length=599)
-    issuing_license: str = Field(None, max_length=599)
-    data_license: datetime
-    form_number: str = Field(None, max_length=599)
-    form_number_suspended: str = Field(None, max_length=599)
-    form_number_start: str = Field(None, max_length=599)
-    form_number_stop: str = Field(None, max_length=599)
-    data_address: str = Field(None, max_length=599)
-    form_number_data: str = Field(None, max_length=599)
-    term: str = Field(None, max_length=599)
+    number_register: Optional[str] = Field(None, max_length=999)
+    name_entity: Optional[str] = Field(None, max_length=599)
+    tax_name: Optional[str] = Field(None, max_length=599)
+    entity_address: Optional[str] = Field(None, max_length=599)
+    address_program: Optional[str] = Field(None, max_length=599)
+    cipher: Optional[str] = Field(None, max_length=599)
 
-    file: str = None
-    issuing_authorities_id: int = None
-    regions_id: int = None
-    quantities_id: int = None
-    code_status_id: int = None
+    title_school: Optional[List[str]] = Field(None, max_length=599)
+    quantity_school: Optional[List[str]] = Field(None, max_length=599)
+    quantities: Optional[List[str]] = Field(None, max_length=599)
+
+    issuing_license: Optional[str] = Field(None, max_length=1099)
+    data_license: datetime
+    form_number: Optional[str] = Field(None, max_length=599)
+    form_number_suspended: Optional[str] = Field(None, max_length=2099)
+    form_number_start: Optional[str] = Field(None, max_length=2099)
+    form_number_stop: Optional[str] = Field(None, max_length=2099)
+    data_address: Optional[str] = Field(None, max_length=1099)
+    form_number_data: Optional[str] = Field(None, max_length=599)
+    term: Optional[str] = Field(None, max_length=599)
+
+    issuing_authorities_id: Optional[int] = None
+    regions_id: Optional[int] = None
+    code_status_id: Optional[int] = None
 
 
 class DBLicenseUpdate(Schema):
-    number_register: str = Field(None, max_length=599)
-    name_entity: str = Field(None, max_length=599)
-    tax_name: str = Field(None, max_length=599)
-    entity_address: str = Field(None, max_length=599)
-    address_program: str = Field(None, max_length=599)
-    cipher: str = Field(None, max_length=599)
-    title_school: str = Field(None, max_length=599)
-    quantity_school: str = Field(None, max_length=599)
-    issuing_license: str = Field(None, max_length=599)
-    data_license: datetime = None
-    form_number: str = Field(None, max_length=599)
-    form_number_suspended: str = Field(None, max_length=599)
-    form_number_start: str = Field(None, max_length=599)
-    form_number_stop: str = Field(None, max_length=599)
-    data_address: str = Field(None, max_length=599)
-    form_number_data: str = Field(None, max_length=599)
-    term: str = Field(None, max_length=599)
+    number_register: Optional[str] = Field(None, max_length=999)
+    name_entity: Optional[str] = Field(None, max_length=599)
+    tax_name: Optional[str] = Field(None, max_length=599)
+    entity_address: Optional[str] = Field(None, max_length=599)
+    address_program: Optional[str] = Field(None, max_length=599)
+    cipher: Optional[str] = Field(None, max_length=599)
 
-    file: str = None
-    issuing_authorities_id: int = None
-    regions_id: int = None
-    quantities_id: int = None
-    code_status_id: int = None
+    title_school: Optional[List[str]] = Field(None, max_length=599)
+    quantity_school: Optional[List[str]] = Field(None, max_length=599)
+    quantities: Optional[List[str]] = Field(None, max_length=599)
+
+    issuing_license: Optional[str] = Field(None, max_length=1099)
+    data_license: datetime
+    form_number: Optional[str] = Field(None, max_length=599)
+    form_number_suspended: Optional[str] = Field(None, max_length=2099)
+    form_number_start: Optional[str] = Field(None, max_length=2099)
+    form_number_stop: Optional[str] = Field(None, max_length=2099)
+    data_address: Optional[str] = Field(None, max_length=1099)
+    form_number_data: Optional[str] = Field(None, max_length=599)
+    term: Optional[str] = Field(None, max_length=599)
+
+    issuing_authorities_id: Optional[int] = None
+    regions_id: Optional[int] = None
+    code_status_id: Optional[int] = None
 
     is_active: bool = None
 
 
 class DBLicenseOUT(Schema):
     id: int
-    number_register: str = Field(None, max_length=599)
-    name_entity: str = Field(None, max_length=599)
-    tax_name: str = Field(None, max_length=599)
-    entity_address: str = Field(None, max_length=599)
-    address_program: str = Field(None, max_length=599)
-    cipher: str = Field(None, max_length=599)
-    title_school: str = Field(None, max_length=599)
-    quantity_school: str = Field(None, max_length=599)
-    issuing_license: str = Field(None, max_length=599)
-    data_license: datetime
-    form_number: str = Field(None, max_length=599)
-    form_number_suspended: str = Field(None, max_length=599)
-    form_number_start: str = Field(None, max_length=599)
-    form_number_stop: str = Field(None, max_length=599)
-    data_address: str = Field(None, max_length=599)
-    form_number_data: str = Field(None, max_length=599)
-    term: str = Field(None, max_length=599)
+    number_register: Optional[str] = Field(None, max_length=999)
+    name_entity: Optional[str] = Field(None, max_length=599)
+    tax_name: Optional[str] = Field(None, max_length=599)
+    entity_address: Optional[str] = Field(None, max_length=599)
+    address_program: Optional[str] = Field(None, max_length=599)
+    cipher: Optional[str] = Field(None, max_length=599)
 
-    file: str = None
-    issuing_authorities_id: int = None
-    regions_id: int = None
-    quantities_id: int = None
-    code_status_id: int = None
+    title_school: Optional[List[str]] = Field(None, max_length=599)
+    quantity_school: Optional[List[str]] = Field(None, max_length=599)
+    quantities: Optional[List[str]] = Field(None, max_length=599)
+
+    issuing_license: Optional[str] = Field(None, max_length=1099)
+    data_license: datetime
+    form_number: Optional[str] = Field(None, max_length=599)
+    form_number_suspended: Optional[str] = Field(None, max_length=2099)
+    form_number_start: Optional[str] = Field(None, max_length=2099)
+    form_number_stop: Optional[str] = Field(None, max_length=2099)
+    data_address: Optional[str] = Field(None, max_length=1099)
+    form_number_data: Optional[str] = Field(None, max_length=599)
+    term: Optional[str] = Field(None, max_length=599)
+
+    issuing_authorities_id: Optional[int] = None
+    regions_id: Optional[int] = None
+    code_status_id: Optional[int] = None
 
     class Config:
         orm_mode = True
