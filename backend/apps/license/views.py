@@ -3,7 +3,6 @@ from ninja import Router
 from typing import List
 
 from backend.apps.license.models import Region
-# from backend.apps.license.models import FormAdd
 from backend.apps.license.models import CodeLicense
 from backend.apps.license.models import IssuingAuthority
 from backend.apps.license.models import DBLicense
@@ -11,9 +10,6 @@ from backend.apps.license.models import DBLicense
 from backend.apps.license.schemas import RegionCreate
 from backend.apps.license.schemas import RegionUpdate
 from backend.apps.license.schemas import RegionOUT
-# from backend.apps.license.schemas import FormAddOUT
-# from backend.apps.license.schemas import FormAddCreate
-# from backend.apps.license.schemas import FormAddUpdate
 from backend.apps.license.schemas import StatusLicenseOUT
 from backend.apps.license.schemas import StatusLicenseCreate
 from backend.apps.license.schemas import StatusLicenseUpdate
@@ -104,44 +100,6 @@ async def delete_issuing(request, issuing_id: int):
     issuing = await sync_to_async(IssuingAuthority.objects.get)(id=issuing_id)
     await sync_to_async(issuing.delete)()
     return {"success": True}
-
-# #######################
-# # QUANTITIES ROUTER
-# #######################
-#
-#
-# @router.post("/quantities", response=FormAddOUT)
-# async def create_quantity(request, data: FormAddCreate):
-#     quantity = await sync_to_async(FormAdd.objects.create)(**data.dict())
-#     return quantity
-#
-#
-# @router.get("/quantities", response=List[FormAddOUT])
-# async def get_quantity_all(request):
-#     quantity = await sync_to_async(list)(FormAdd.objects.all())
-#     return quantity
-#
-#
-# @router.get("/quantities/{quantity_id}", response=FormAddOUT)
-# async def get_quantity_pk(request, quantity_id: int):
-#     quantity = await sync_to_async(FormAdd.objects.get)(id=quantity_id)
-#     return quantity
-#
-#
-# @router.put("/quantities/{quantity_id}", response=FormAddOUT)
-# async def update_quantity(request, quantity_id: int, data: FormAddUpdate):
-#     quantity = await sync_to_async(FormAdd.objects.get)(id=quantity_id)
-#     for attr, value in data.dict().items():
-#         setattr(quantity, attr, value)
-#     await sync_to_async(quantity.save)()
-#     return quantity
-#
-#
-# @router.delete("/quantities/{quantity_id}")
-# async def delete_quantity(request, quantity_id: int):
-#     quantity = await sync_to_async(FormAdd.objects.get)(id=quantity_id)
-#     await sync_to_async(quantity.delete)()
-#     return {"success": True}
 
 
 #######################

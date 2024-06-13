@@ -6,3 +6,4 @@ django-ninja-jwt
 django-cors-headers
 uvicorn
 psycopg2
+deepface

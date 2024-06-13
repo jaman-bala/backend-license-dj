@@ -6,6 +6,7 @@ from django.db import models
 
 class Region(models.Model):
     """ Модель Региона """
+
     title = models.CharField('Наименование региона', max_length=599, blank=True)
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -25,6 +26,7 @@ class Region(models.Model):
 
 class IssuingAuthority(models.Model):
     """ Модель органа выдачи """
+
     title = models.CharField('Орган выдачи', max_length=599, blank=True)
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -45,6 +47,7 @@ class IssuingAuthority(models.Model):
 
 class CodeLicense(models.Model):
     """ Модель STATUS """
+
     title = models.CharField('Статус', max_length=199, blank=True)
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -64,6 +67,7 @@ class CodeLicense(models.Model):
 
 class DBLicense(models.Model):
     """ Модель Базы лицензий """
+
     number_register = models.CharField('Номер регистрации', unique=True, max_length=999, blank=True)
     name_entity = models.CharField('Наименование юр. лица', max_length=599, blank=True)
     tax_name = models.CharField('Идентификационный номер', max_length=599, blank=True)
@@ -98,5 +102,5 @@ class DBLicense(models.Model):
         return self.number_register
 
     class Meta:
-        verbose_name = 'лицензию'
-        verbose_name_plural = 'База лицензий'
+        verbose_name = 'База лицензие'
+        verbose_name_plural = 'База лицензии'

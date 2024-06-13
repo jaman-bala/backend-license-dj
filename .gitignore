@@ -19,6 +19,8 @@ env/
 media/
 .DS_Store
 
+**/migrations/
+
 # If you are using PyCharm #
 .idea/*
 .idea/workspace.xml

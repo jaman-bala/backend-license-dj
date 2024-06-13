@@ -145,7 +145,6 @@ class DBLicenseUpdate(Schema):
     regions_id: Optional[int] = None
     code_status_id: Optional[int] = None
 
-    is_active: bool
 
 class DBLicenseOUT(Schema):
     id: int
@@ -174,10 +173,6 @@ class DBLicenseOUT(Schema):
     issuing_authorities_id: Optional[int] = None
     regions_id: Optional[int] = None
     code_status_id: Optional[int] = None
-
-    is_active: bool
-    created_date: datetime
-    updated: datetime
 
     class Config:
         orm_mode = True
