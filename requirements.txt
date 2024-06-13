@@ -7,3 +7,4 @@ django-cors-headers
 uvicorn
 psycopg2
 deepface
+tf-keras
