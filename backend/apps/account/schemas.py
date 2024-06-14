@@ -5,4 +5,3 @@ class UserSchemas(Schema):
     username: str
     first_name: str
     last_name: str
-    photo: str = None

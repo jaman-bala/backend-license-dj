@@ -95,7 +95,6 @@ class DBLicense(models.Model):
     issuing_authorities = models.ForeignKey(IssuingAuthority, verbose_name='Орган выдачи', on_delete=models.CASCADE)
     regions = models.ForeignKey(Region, verbose_name='Регион', on_delete=models.CASCADE)
 
-    # user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)

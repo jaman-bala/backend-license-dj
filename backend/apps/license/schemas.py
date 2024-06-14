@@ -80,7 +80,6 @@ class DBLicenseBase(Schema):
     title_school: List[str] = None
     quantity_school: List[str] = None
     quantities: List[str] = None
-    # user_id: Optional[int] = None
 
     file: Optional[str]
 
@@ -112,7 +111,6 @@ class DBLicenseCreate(Schema):
     title_school: List[str] = None
     quantity_school: List[str] = None
     quantities: List[str] = None
-    # user_id: Optional[int] = None
 
     file: Optional[str]
 
@@ -140,7 +138,6 @@ class DBLicenseUpdate(Schema):
     title_school: List[str] = None
     quantity_school: List[str] = None
     quantities: List[str] = None
-    # user_id: Optional[int] = None
 
     file: Optional[str]
 
