@@ -1,3 +1,4 @@
+from typing import List
 from ninja import Router
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User as DjangoUser
@@ -19,7 +20,7 @@ def token(request, username: str, password: str):
     refresh = RefreshToken.for_user(user)
     return {"access_token": str(refresh.access_token), "refresh_token": str(refresh)}
 
-@router.get("/user")
+@router.get("/user", response=List[UserSchemas])
 def get_all_user(request):
-    users = DjangoUser.objects.all()
-    return users
+    user = DjangoUser.objects.all()
+    return user
