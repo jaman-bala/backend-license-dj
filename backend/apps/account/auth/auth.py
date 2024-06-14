@@ -7,10 +7,8 @@ class BearerAuth(HttpBearer):
     def authenticate(self, request, token):
         try:
             refresh_token = RefreshToken(token)
-            user_id = refresh_token.payload.get('user_id')  # Получаем ID пользователя из payload
+            user_id = refresh_token.payload.get('user_id')
             user = DjangoUser.objects.get(id=user_id)
             return user
         except Exception as e:
-            raise HttpError(401, "Invalid token")
-
-auth = BearerAuth()
+            raise HttpError(401, "Вы ввели неверный ТОКЕН")
