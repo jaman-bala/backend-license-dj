@@ -20,4 +20,4 @@ class CodeLicenseAdmin(admin.ModelAdmin):
 
 @admin.register(DBLicense)
 class DBLicenseAdmin(admin.ModelAdmin):
-    list_display = ('number_register', 'name_entity', 'user', 'is_active', 'created_date', 'updated')
+    list_display = ('number_register', 'name_entity', 'is_active', 'created_date', 'updated')
