@@ -19,7 +19,7 @@ def token(request, username: str, password: str):
     refresh = RefreshToken.for_user(user)
     return {"access_token": str(refresh.access_token), "refresh_token": str(refresh)}
 
-@router.get("/user", response=UserSchemas)
+@router.get("/user")
 def get_all_user(request):
     users = DjangoUser.objects.all()
     return users
