@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 #######################
 # REGION MODELS
@@ -93,6 +94,8 @@ class DBLicense(models.Model):
     code_status = models.ForeignKey(CodeLicense, verbose_name='Статус выдачи', on_delete=models.CASCADE)
     issuing_authorities = models.ForeignKey(IssuingAuthority, verbose_name='Орган выдачи', on_delete=models.CASCADE)
     regions = models.ForeignKey(Region, verbose_name='Регион', on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
