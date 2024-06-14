@@ -4,13 +4,10 @@ from django.contrib.auth.models import User as DjangoUser
 from ninja.errors import HttpError
 from ninja_jwt.tokens import RefreshToken
 
-from backend.apps.account.auth.auth import BearerAuth
 from backend.apps.account.schemas import UserSchemas
 
 
 router = Router()
-
-auth = BearerAuth()
 
 @router.post("/token")
 def token(request, username: str, password: str):
