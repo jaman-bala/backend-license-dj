@@ -6,7 +6,6 @@ from ninja_jwt.tokens import RefreshToken
 
 from backend.apps.account.auth.auth import BearerAuth
 from backend.apps.account.schemas import UserSchemas
-from backend.apps.account.models import UserProfile
 
 
 router = Router()
