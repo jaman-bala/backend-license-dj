@@ -14,8 +14,8 @@ class RegionAdmin(admin.ModelAdmin):
 class IssuingAuthorityAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active', 'created_date', 'updated')
 
-@admin.register(IssuingAuthority)
-class IssuingAuthorityAdmin(admin.ModelAdmin):
+@admin.register(CodeLicense)
+class CodeLicenseAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active', 'created_date', 'updated')
 
 @admin.register(DBLicense)
