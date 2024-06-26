@@ -230,7 +230,7 @@ async def update_status(request: HttpRequest, status_id: int, data: StatusLicens
 @router.post("/licenses", response={HTTPStatus.CREATED: DBLicenseOUT})
 async def post_license(request: HttpRequest,
                        payload: DBLicenseCreate,
-                       file: UploadedFile = File(None)):
+                        ):
     try:
         # Создаем объект DBLicense без сохранения
         license = DBLicense(**payload.dict())
