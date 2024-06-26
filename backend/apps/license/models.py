@@ -9,6 +9,7 @@ class Region(models.Model):
     """ Модель Региона """
 
     title = models.CharField('Наименование региона', max_length=599, blank=True)
+
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
     updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
@@ -29,6 +30,7 @@ class IssuingAuthority(models.Model):
     """ Модель органа выдачи """
 
     title = models.CharField('Орган выдачи', max_length=599, blank=True)
+
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
     updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
@@ -50,6 +52,7 @@ class CodeLicense(models.Model):
     """ Модель STATUS """
 
     title = models.CharField('Статус', max_length=199, blank=True)
+
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
     updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
@@ -84,12 +87,12 @@ class DBLicense(models.Model):
     data_address = models.CharField('Данные о смене адреса', max_length=1099, blank=True)
     form_number_data = models.CharField('Основание дата выдачи дубликата', max_length=599, blank=True)
     term = models.CharField('Срок действия', max_length=599, blank=True)
+    re_registration = models.CharField('Переоформления', max_length=599, blank=True)
 
     title_school = models.JSONField('Наименование образовательного учреждения', max_length=599, blank=True)
     quantity_school = models.JSONField('Кол. обучающихся', max_length=599, blank=True)
-    quantities = models.JSONField('Форма обучения', max_length=599, blank=True)
-
-    file = models.FileField('Вставка файла', upload_to='file/', blank=True)
+    training_period = models.JSONField('Срок обучения', max_length=599, blank=True)
+    status_title_school = models.JSONField('Статус школы', max_length=599, blank=True)
 
     code_status = models.ForeignKey(CodeLicense, verbose_name='Статус выдачи', on_delete=models.CASCADE)
     issuing_authorities = models.ForeignKey(IssuingAuthority, verbose_name='Орган выдачи', on_delete=models.CASCADE)
@@ -99,6 +102,18 @@ class DBLicense(models.Model):
     is_active = models.BooleanField('Активный', default=True)
     created_date = models.DateTimeField('Дата создания', auto_now_add=True)
     updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
+
+    created_by = models.ForeignKey(User, verbose_name='Создано пользователем', related_name='db_licenses_created',
+                                   on_delete=models.SET_NULL, null=True, blank=True)
+    updated_by = models.ForeignKey(User, verbose_name='Обновлено пользователем', related_name='db_licenses_updated',
+                                   on_delete=models.SET_NULL, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        if not self.pk:  # Если это новая запись
+            self.created_by = user
+        self.updated_by = user
+        super(DBLicense, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.number_register

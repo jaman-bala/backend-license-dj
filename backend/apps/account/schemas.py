@@ -1,7 +1,5 @@
 from ninja import Schema
 
-class UserSchemas(Schema):
-    id: int
+class LoginInput(Schema):
     username: str
-    first_name: str
-    last_name: str
+    password: str

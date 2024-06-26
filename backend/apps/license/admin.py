@@ -28,4 +28,11 @@ class CodeLicenseAdmin(admin.ModelAdmin):
 class DBLicenseAdmin(admin.ModelAdmin):
     """ Модель Базы лицензий """
 
-    list_display = ('number_register', 'name_entity', 'is_active', 'created_date', 'updated')
+    list_display = ('number_register', 'name_entity', 'is_active', 'created_date', 'updated', 'created_by', 'updated_by')
+    readonly_fields = ('created_by', 'updated_by')
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:  # Если это новая запись
+            obj.created_by = request.user
+        obj.updated_by = request.user
+        super().save_model(request, obj, form, change)

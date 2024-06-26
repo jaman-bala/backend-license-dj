@@ -4,7 +4,7 @@ from django.urls import path
 from ninja import NinjaAPI
 
 from backend.apps.license.views import router as license_router
-from backend.apps.account.views import router as accounts_router
+from backend.apps.account.auth.login import router as login_router
 from backend.config import settings
 
 api = NinjaAPI(
@@ -20,8 +20,8 @@ api.add_router(
 
 api.add_router(
     "api/",
-    accounts_router,
-    tags=["Аккаунт"]
+    login_router,
+    tags=["ВХОД"]
 )
 
 urlpatterns = [

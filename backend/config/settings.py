@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
@@ -50,18 +50,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "https://lc.tsvs.kg",
 ]
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ALGORITHM = "HS256"
+access_token_jwt_subject = "access"
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-NINJA_JWT = {
-    "SECRET_KEY": "T43yV75L%CSdkGafNKa?1I~PsNZq1gv4R2|lj0Jqtsk8edtwP3S#%fxV561f~GsEm~G#lUBjzstTWxOY$VxUwcdqeWwaq2Hm~Tz",
-    "ALGORITHM": "HS256",
-    "ACCESS_TOKEN_EXPIRE_MINUTES": 30,
-    "REFRESH_TOKEN_EXPIRE_DAYS": 7,
-}
-SESSION_COOKIE_AGE = 1800
 ROOT_URLCONF = 'backend.config.urls'
 
 
@@ -97,18 +89,18 @@ WSGI_APPLICATION = 'backend.config.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_DB", default="db"),
-        "USER": os.getenv("POSTGRES_USER", default="db_admuser"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="db_ZAQ12345tgb*"),
-        "HOST": os.getenv("POSTGRES_HOST", default="127.0.0.1"),
-        "PORT": os.getenv("POSTGRES_PORT", default="5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+        "OPTIONS": {
+            "driver": "asyncpg",
+        }
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -1,5 +1,6 @@
 from typing import List, Optional
 from ninja import Schema
+from ninja.files import UploadedFile
 from datetime import datetime
 
 class RegionBase(Schema):
@@ -76,12 +77,12 @@ class DBLicenseBase(Schema):
     data_address: Optional[str]
     form_number_data: Optional[str]
     term: Optional[str]
+    re_registration: Optional[str]
 
     title_school: List[str] = None
     quantity_school: List[str] = None
-    quantities: List[str] = None
-
-    file: Optional[str]
+    training_period: List[str] = None
+    status_title_school: List[str] = None
 
     issuing_authorities_id: Optional[int] = None
     regions_id: Optional[int] = None
@@ -107,12 +108,12 @@ class DBLicenseCreate(Schema):
     data_address: Optional[str]
     form_number_data: Optional[str]
     term: Optional[str]
+    re_registration: Optional[str]
 
     title_school: List[str] = None
     quantity_school: List[str] = None
-    quantities: List[str] = None
-
-    file: Optional[str]
+    training_period: List[str] = None
+    status_title_school: List[str] = None
 
     issuing_authorities_id: Optional[int] = None
     regions_id: Optional[int] = None
@@ -134,12 +135,12 @@ class DBLicenseUpdate(Schema):
     data_address: Optional[str]
     form_number_data: Optional[str]
     term: Optional[str]
+    re_registration: Optional[str]
 
     title_school: List[str] = None
     quantity_school: List[str] = None
-    quantities: List[str] = None
-
-    file: Optional[str]
+    training_period: List[str] = None
+    status_title_school: List[str] = None
 
     issuing_authorities_id: Optional[int] = None
     regions_id: Optional[int] = None
@@ -163,12 +164,12 @@ class DBLicenseOUT(Schema):
     data_address: Optional[str]
     form_number_data: Optional[str]
     term: Optional[str]
+    re_registration: Optional[str]
 
     title_school: List[str] = None
     quantity_school: List[str] = None
-    quantities: List[str] = None
-
-    file: Optional[str]
+    training_period: List[str] = None
+    status_title_school: List[str] = None
 
     issuing_authorities_id: Optional[int] = None
     regions_id: Optional[int] = None
